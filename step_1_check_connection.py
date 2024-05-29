@@ -24,7 +24,7 @@ logging.basicConfig(
 def get_snowpark_session() -> Session:
     """Create Snowpark Session"""
     connection_parameters = {
-        "ACCOUNT_ID": os.environ.get("ACCOUNT_ID"),
+        "ACCOUNT": os.environ.get("ACCOUNT_ID"),
         "USER": os.environ.get("SF_USER"),
         "PASSWORD": os.environ.get("PASSWORD"),
         "ROLE": os.environ.get("ROLE"),
@@ -41,23 +41,27 @@ def main():
     session = get_snowpark_session()
 
     context_df = session.sql(
-        "select \
-            current_role(),\
-            current_database(),\
-            current_schema(),\
-            current_warehouse()"
+        """
+        select 
+            current_role(),
+            current_database(),
+            current_schema(),
+            current_warehouse()
+        """
     )
     context_df.show(2)
 
     customer_df = session.sql(
-        "select \
-            c_custkey, \
-            c_name, \
-            c_phone, \
-            c_mktsegment \
-         from \
-            snowflake_sample_data.tpch_sf1.customer \
-         limit 10"
+        """
+        select
+            c_custkey,
+            c_name,
+            c_phone,
+            c_mktsegment
+        from
+            snowflake_sample_data.tpch_sf1.customer
+        limit 10
+        """
     )
     customer_df.show(5)
 
