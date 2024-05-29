@@ -24,7 +24,7 @@ logging.basicConfig(
 def get_snowpark_session() -> Session:
     """Create Snowpark Session"""
     connection_parameters = {
-        "ACCOUNT_ID": os.environ.get("ACCOUNT_ID"),
+        "ACCOUNT": os.environ.get("ACCOUNT_ID"),
         "USER": os.environ.get("SF_USER"),
         "PASSWORD": os.environ.get("PASSWORD"),
         "ROLE": os.environ.get("ROLE"),
